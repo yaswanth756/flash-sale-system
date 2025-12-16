@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # 1. The Database (PostgreSQL)
+  postgres:
+    image: postgres:15-alpine
+    container_name: flash_postgres
+    environment:
+      POSTGRES_USER: yaswanth        # Your custom user
+      POSTGRES_PASSWORD: password123 # Your custom password
+      POSTGRES_DB: flashsale_db      # The database name
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. The Cache (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: flash_redis
+    ports:
+      - "6379:6379"
+
+# This saves your data even if you restart your computer
+volumes:
+  postgres_data:
